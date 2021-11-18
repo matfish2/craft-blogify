@@ -1,0 +1,40 @@
+{
+  "name": "matfish/craft-blogify",
+  "description": "Generates a blog for CraftCMS including boilerplate templates",
+  "type": "craft-plugin",
+  "keywords": [
+    "blog",
+    "craft"
+  ],
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mat Fish",
+      "homepage": "https://github.com/matfish2/craft-blog"
+    }
+  ],
+  "support": {
+    "email": "matfish2@gmail.com",
+    "issues": "https://github.com/matfish2/craft-blogify/issues?state=open",
+    "source": "https://github.com/matfish2/craft-blogify",
+    "docs": "https://github.com/matfish2/craft-blogify/blob/master/README.md"
+  },
+  "require": {
+    "craftcms/cms": "^3.1.0",
+    "craftcms/redactor": "^2.8",
+    "fzaninotto/faker": "^1.5",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "matfish\\Blogify\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "extra": {
+    "name": "Blogify",
+    "handle": "blogify"
+  }
+}

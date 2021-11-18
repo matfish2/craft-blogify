@@ -1,0 +1,193 @@
+{% extends 'blogify/_layout' %}
+
+{% block content %}
+    {% set authorPhoto = entry.author.photo ? entry.author.photo.url : ''  %}
+    <div class="site-cover site-cover-sm same-height overlay single-page"
+         style="background-image: url({{ entry.image.url }});">
+        <div class="container">
+            <div class="row same-height justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="post-entry text-center">
+                        <a href="{{ siteUrl }}blog/category/{{ entry.categories[0].slug }}" class="post-category text-white bg-success mb-3">
+                            {{ entry.categories[0] }}
+                        </a>
+                        <h1 class="mb-4"><a href="#">{{ entry.title }}</a></h1>
+                        <div class="post-meta align-items-center text-center">
+                            <figure class="author-figure mb-0 mr-3 d-inline-block"><img src="{{ authorPhoto }}"
+                                                                                        alt="{{ entry.author.fullName }}" class="img-fluid">
+                            </figure>
+                            <span class="d-inline-block mt-1">By <a class="text-white" href="{{ siteUrl }}blog/author?author={{ entry.author.username }}">{{ entry.author.fullName }}</a></span>
+                            <span>&nbsp;-&nbsp; {{ entry.postDate | date }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="site-section py-lg">
+        <div class="container">
+
+            <div class="row blog-entries element-animate">
+
+                <div class="col-md-12 col-lg-8 main-content">
+
+                    <div class="post-content-body">
+                        {{ entry.blogifyPostContent }}
+                    </div>
+
+                    <div class="pt-5">
+                        <p>Categories: {% for category in entry.categories.all() %} <a
+                                    href="{{ category.url }}">{{ category.title }}</a> {% endfor %}
+                            Tags: {% for tag in entry.tags.all() %} <a
+                                    href="{{ siteUrl }}blog/tag?tag={{ tag.id }}">{{ tag.title }}</a> {% endfor %} </p>
+                    </div>
+
+                    <div class="pagination flex align-content-between">
+                        {%  set prev = entry.prevPost %}
+                        {%  set next = entry.nextPost %}
+
+                        {% if (prev) %}
+                            <a href="{{ prev.url }}" style="float:left;">
+                                <span>< PREV</span>
+                            </a>
+                        {% endif %}
+                        {% if (next) %}
+                            <a href="{{ next.url }}" style="float:right;">
+                                <span>NEXT ></span>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <!-- END main-content -->
+
+                <div class="col-md-12 col-lg-4 sidebar">
+                    <div class="sidebar-box search-form-wrap">
+                        <form action="#" class="search-form">
+                            <div class="form-group">
+                                <span class="icon fa fa-search"></span>
+                                <input type="text" class="form-control" id="s"
+                                       placeholder="Type a keyword and hit enter">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- END sidebar-box -->
+                    <div class="sidebar-box">
+                        <div class="bio text-center">
+                            <img src="{{ authorPhoto  }}" alt="{{ entry.author.fullName }}" class="img-fluid mb-5">
+                            <div class="bio-body">
+                                <h2>{{ entry.author.fullName }}</h2>
+                                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
+                                    facilis sunt repellendus excepturi beatae porro debitis voluptate nulla quo veniam
+                                    fuga sit molestias minus.</p>
+                                <p><a href="#" class="btn btn-primary btn-sm rounded px-4 py-2">Read my bio</a></p>
+                                <p class="social">
+                                    <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
+                                    <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
+                                    <a href="#" class="p-2"><span class="fa fa-instagram"></span></a>
+                                    <a href="#" class="p-2"><span class="fa fa-youtube-play"></span></a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END sidebar-box -->
+                    <div class="sidebar-box">
+                        <h3 class="heading">Recent Posts</h3>
+                        <div class="post-entry-sidebar">
+                            <ul>
+                                {% for post in entry.getRecentPosts.limit(4).all() %}
+                                    <li>
+                                        <a href="{{ post.url }}">
+                                            <img src="{{ post.image.url }}" alt="{{ post.image.title }}" class="mr-4">
+                                            <div class="text">
+                                                <h4>{{ post.title }}</h4>
+                                                <div class="post-meta">
+                                                    <span class="mr-2">{{ post.postDate | date }}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END sidebar-box -->
+
+                    <div class="sidebar-box">
+                        <h3 class="heading">Categories</h3>
+                        <ul class="categories">
+                            {% for category in entry.usedCategories %}
+                                <li><a href="{{ category.url }}">{{ category.title }}
+                                        <span>({{ entry.getCategoryCount(category) }})</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- END sidebar-box -->
+
+                    <div class="sidebar-box">
+                        <h3 class="heading">Tags</h3>
+                        <ul class="tags">
+                            {% for tag in entry.allTags %}
+                                <li><a href="{{ siteUrl }}blog/tag?tag={{ tag.id }}">{{ tag }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <!-- END sidebar -->
+
+            </div>
+        </div>
+    </section>
+
+    <div class="site-section bg-light">
+        <div class="container">
+
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2>Related Posts</h2>
+                </div>
+            </div>
+
+            <div class="row align-items-stretch retro-layout">
+                <div class="col-md-12">
+                    <div class="two-col d-block d-md-flex mb-4">
+                        {% for post in entry.relatedPosts.limit(4).all() %}
+                            <a href="{{ post.url }}" class="hentry v-height img-2 gradient ml-2"
+                               style="background-image: url({{ post.image.url }});">
+                            <span class="post-category text-white bg-primary">
+                                {{ post.categories[0] }}
+                            </span>
+                                <div class="text text-sm">
+                                    <h2>{{ post.title }}</h2>
+                                    <span>{{ post.postDate | date }}</span>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="site-section bg-lightx">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-5">
+                    <div class="subscribe-1 ">
+                        <h2>Subscribe to our newsletter</h2>
+                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit nesciunt error
+                            illum a explicabo, ipsam nostrum.</p>
+                        <form action="#" class="d-flex">
+                            <input type="text" class="form-control" placeholder="Enter your email address">
+                            <input type="submit" class="btn btn-primary" value="Subscribe">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

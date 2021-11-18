@@ -1,0 +1,27 @@
+{% extends 'blogify/_layout' %}
+{% set author = craft.users().username(craft.app.request.getQueryParam('author')).one() %}
+{% if (not author) %}
+    {% redirect '/blog/index' %}
+{% endif %}
+
+{% block content %}
+    <div class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    {% if author.photo %}
+                        <div class="author-figure mb-0 mr-3 float-left">
+                            <img width="100" src="{{ author.photo.url }}" alt="{{ author.fullName }}">
+                        </div>
+                    {% endif %}
+                    <span>Author</span>
+                    <h3>{{ author.fullName }}</h3>
+                    <p>Author bio here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
+                        error eius quo, officiis non maxime quos reiciendis perferendis doloremque maiores!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blogify/filters/_partials/postsList' with {posts: author.posts.limit(9)} %}
+{% endblock %}

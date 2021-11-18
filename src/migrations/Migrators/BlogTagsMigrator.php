@@ -1,0 +1,40 @@
+<?php
+
+
+namespace matfish\Blogify\migrations\Migrators;
+
+
+use Craft;
+use craft\models\TagGroup;
+use matfish\Blogify\Handles;
+
+class BlogTagsMigrator extends Migrator
+{
+    public static function add(): bool
+    {
+        $tagsGroup = new TagGroup([
+                'name' => 'Blog Tags',
+                'handle' => Handles::TAGS
+            ]
+        );
+
+        return Craft::$app->tags->saveTagGroup($tagsGroup);
+    }
+
+    public static function remove(): bool
+    {
+        $group = Craft::$app->tags->getTagGroupByHandle(Handles::TAGS);
+
+        if ($group) {
+            try {
+                $res = Craft::$app->tags->deleteTagGroup($group);
+                self::log($res ? 'Deleted tags group' : 'Failed to delete tag group');
+                return $res;
+            } catch (\Exception $e) {
+                self::log('Failed to delete tag group with message ' . $e->getMessage());
+            }
+        }
+
+        return false;
+    }
+}

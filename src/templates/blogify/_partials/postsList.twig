@@ -1,0 +1,39 @@
+<div class="site-section bg-white">
+    <div class="container">
+        <div class="row">
+            {% paginate posts as pageInfo, pageEntries %}
+            {% for post in pageEntries %}
+                <div class="col-lg-4 mb-4">
+                    <div class="entry2">
+                        <a href="{{ post.url }}"><img src="{{ post.image.url }}" alt="{{ post.image.title }}"
+                                                      class="img-fluid rounded"></a>
+                        <div class="excerpt">
+                            {% for category in post.categories %}
+                                <span class="post-category text-white bg-secondary mb-3">{{ category }}</span>
+                            {% endfor %}
+                            <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+                            <div class="post-meta align-items-center text-left clearfix">
+                                <figure class="author-figure mb-0 mr-3 float-left"><img src="images/person_1.jpg"
+                                                                                        alt="Image"
+                                                                                        class="img-fluid"></figure>
+                                <span class="d-inline-block mt-1">By <a href="#">{{ post.author.fullName }}</a></span>
+                                <span>&nbsp;-&nbsp; {{ post.postDate | date }}</span>
+                            </div>
+                            {{ post.excerpt }}
+                            <p><a href="{{ post.url }}">Read More</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row text-center pt-5 border-top">
+            <div class="col-md-12">
+                <div class="custom-pagination">
+                    {% for page in range(1,pageInfo.totalPages) %}
+                        <a href="{{ pageInfo.getPageUrl(page) }}"><span style="{{ page is same as (pageInfo.currentPage) ?'background:#2150fc':'' }}">{{ page }}</span></a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
