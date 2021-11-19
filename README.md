@@ -97,6 +97,14 @@ create a `blogify/post/_matrix/postHeading.twig` file:
     <h2>{{block.heading}}</h2>  
 ```
 
+* Render the post content:
+
+```html
+<div class="post-content">
+    {{ entry.content | raw }}
+</div>
+```
+
 Note that you can change the templates folder path via the plugin's config.
 Create a `config/blogify.php` file:
 
