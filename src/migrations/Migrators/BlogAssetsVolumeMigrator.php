@@ -22,7 +22,7 @@ class BlogAssetsVolumeMigrator extends Migrator
             'hasUrls' => 1,
             'url' => '/blogify',
             'settings' => [
-                'path' => 'blogify'
+                'path' => '@webroot/blogify'
             ]
         ]);
 
