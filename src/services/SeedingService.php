@@ -131,7 +131,7 @@ class SeedingService
 
                 // Upload asset to permanent folder
                 // and create DB record
-                $result = $this->uploadNewAsset($folder->id, $tempFilePath, $filenameUnique);
+                $result = $this->uploadNewAsset($folder, $tempFilePath, $filenameUnique);
 
                 $assets[] = $result;
             }
@@ -143,15 +143,8 @@ class SeedingService
 
     }
 
-    private function uploadNewAsset($folderId, string $path, $filename)
+    private function uploadNewAsset($folder, string $path, $filename)
     {
-        $assets = Craft::$app->getAssets();
-        $folder = $assets->findFolder(['id' => $folderId]);
-
-        if (!$folder) {
-            throw new BadRequestHttpException('The target folder provided for uploading is not valid');
-        }
-
         $filename = Assets::prepareAssetName($filename);
 
         $asset = new Asset();

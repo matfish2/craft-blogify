@@ -30,7 +30,7 @@ class PostFieldsBehavior extends Behavior
             $html = '';
             $view = Craft::$app->getView();
             $view->setTemplateMode($view::TEMPLATE_MODE_SITE);
-            foreach ($this->owner->blogifyPostContent as $block) {
+            foreach ($this->owner->blogifyPostContent->all() as $block) {
                 $templatePath = Blogify::getInstance()->settings->matrixTemplatesPath . DIRECTORY_SEPARATOR . $block->type;
                 if ($view->doesTemplateExist($templatePath)) {
                     $html .= $view->renderTemplate($templatePath, [
@@ -39,7 +39,6 @@ class PostFieldsBehavior extends Behavior
                 } else {
                     $html .= "<p style='color:red'>Template {$templatePath} not found</p>";
                 }
-
             }
 
             return $html;
