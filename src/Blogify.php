@@ -9,21 +9,18 @@ use craft\elements\Entry;
 use craft\elements\Tag;
 use craft\elements\User;
 use craft\events\DefineBehaviorsEvent;
-use matfish\Blogify\behaviors\AllCategoriesBehavior;
-use matfish\Blogify\behaviors\AllTagsBehavior;
 use matfish\Blogify\behaviors\AuthorPostsBehavior;
-use matfish\Blogify\behaviors\BlogSearchBehavior;
 use matfish\Blogify\behaviors\CategoryPostsBehavior;
 use matfish\Blogify\behaviors\PostCategoriesBehavior;
 use matfish\Blogify\behaviors\PostFieldsBehavior;
 use matfish\Blogify\behaviors\PostPaginationBehavior;
 use matfish\Blogify\behaviors\PostTagsBehavior;
-use matfish\Blogify\behaviors\RecentPostsBehavior;
 use matfish\Blogify\behaviors\TagPostsBehavior;
-use matfish\Blogify\twigextensions\BlogGlobalsTwigExtension;
+use matfish\Blogify\models\Settings;
+use matfish\Blogify\twigextensions\BlogTwigExtension;
 use yii\base\Event;
 
-class Plugin extends \craft\base\Plugin
+class Blogify extends \craft\base\Plugin
 {
     public function init()
     {
@@ -36,6 +33,11 @@ class Plugin extends \craft\base\Plugin
 
         $this->registerControllers();
 
+    }
+
+    protected function createSettingsModel()
+    {
+        return new Settings();
     }
 
     protected function registerBehaviors()
@@ -88,12 +90,6 @@ class Plugin extends \craft\base\Plugin
                         PostCategoriesBehavior::class,
                         PostTagsBehavior::class,
                         PostFieldsBehavior::class,
-                        RecentPostsBehavior::class,
-                    ]);
-                } elseif ($event->sender->sectionId === $this->getSectionId(Handles::LISTING)) {
-                    $event->sender->attachBehaviors([
-                        RecentPostsBehavior::class,
-                        BlogSearchBehavior::class
                     ]);
                 }
             }
@@ -123,6 +119,6 @@ class Plugin extends \craft\base\Plugin
 
     private function registerTwigExtensions()
     {
-        Craft::$app->view->registerTwigExtension(new BlogGlobalsTwigExtension());
+        Craft::$app->view->registerTwigExtension(new BlogTwigExtension());
     }
 }

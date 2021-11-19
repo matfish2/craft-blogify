@@ -11,6 +11,11 @@ class FieldsService
 
     public function add($name, $handle, $type, $attributes = null, $settings = null)
     {
+        if ($field = Craft::$app->fields->getFieldByHandle($handle)) {
+            blogify_log("Field {$handle} already exists");
+            return $field;
+        }
+
         $groupId = $this->getFieldGroupId();
         $fieldsService = Craft::$app->getFields();
 
@@ -32,6 +37,7 @@ class FieldsService
         $field = $fieldsService->createField($params);
 
         if (!$fieldsService->saveField($field)) {
+            blogify_log(json_encode($field->getErrors()));
             throw new \Exception("Failed to save {$handle} field");
         }
 

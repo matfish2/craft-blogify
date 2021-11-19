@@ -10,6 +10,7 @@ use craft\elements\Category;
 use craft\elements\Entry;
 use craft\elements\Tag;
 use craft\elements\User;
+use craft\helpers\Assets;
 use craft\services\Path;
 use craft\records\VolumeFolder;
 use Faker\Factory;
@@ -82,7 +83,7 @@ class SeedingService
 
         $list = ['Sports', 'Entertainment', 'Politics', 'Finance', 'Games'];
 
-        if (count($cats) === 0) {
+        if (count($cats) === 0) { // Generate new categories
             foreach ($list as $category) {
                 $c = new Category([
                     'groupId' => $catGroup->id,
@@ -102,34 +103,43 @@ class SeedingService
     private function generateImages()
     {
         $assetVolume = Craft::$app->volumes->getVolumeByHandle(Handles::ASSETS);
-        $folder = VolumeFolder::findOne([
-            'volumeId' => $assetVolume->id
-        ]);
-
-        $dir = realpath(__DIR__ . '/../assets/site/images');
-        $path = new Path();
-        $tempdir = $path->getTempPath();
         $assets = Asset::find()->volume($assetVolume)->all();
 
-        if (count($assets) > 0) {
-            return array_map(function ($asset) {
-                return $asset->id;
-            }, $assets);
-        } else {
-            $assets = [];
-            $lists = ['hero_1', 'img_1', 'img_2', 'img_3', 'img_4'];
-            foreach ($lists as $item) {
-                $filename = $item . '.jpg';
-                $path = $dir . DIRECTORY_SEPARATOR . $filename;
-                $binary = file_get_contents($path);
-                $tf = $tempdir . DIRECTORY_SEPARATOR . $item . rand(100, 10000) . '.jpg';
-                file_put_contents($tf, $binary);
-                $result = $this->uploadNewAsset($folder->id, $tf, $filename);
-                $assets[] = $result->id;
-            }
+        // Generate new assets
+        if (count($assets) === 0) {
+            // Find folder
+            $folder = VolumeFolder::findOne([
+                'volumeId' => $assetVolume->id
+            ]);
 
-            return $assets;
+            // images in plugin folder
+            $dir = realpath(__DIR__ . '/../assets/site/images');
+
+            // temp folder in project
+            $path = new Path();
+            $tempDirPath = $path->getTempPath();
+
+            for ($i=1; $i<=11; $i++) {
+                $image = "img_{$i}";
+                // move file from plugin assets to project temp folder
+                $filename = $image . '.jpg';
+                $filenameUnique = $image . '_' . rand(100, 10000) . '.jpg';
+                $path = $dir . DIRECTORY_SEPARATOR . $filename;
+                $tempFilePath = $tempDirPath . DIRECTORY_SEPARATOR . $filenameUnique;
+                file_put_contents($tempFilePath, file_get_contents($path));
+
+
+                // Upload asset to permanent folder
+                // and create DB record
+                $result = $this->uploadNewAsset($folder->id, $tempFilePath, $filenameUnique);
+
+                $assets[] = $result;
+            }
         }
+
+        return array_map(function ($asset) {
+            return $asset->id;
+        }, $assets);
 
     }
 
@@ -142,14 +152,21 @@ class SeedingService
             throw new BadRequestHttpException('The target folder provided for uploading is not valid');
         }
 
+        $filename = Assets::prepareAssetName($filename);
+
         $asset = new Asset();
         $asset->tempFilePath = $path;
         $asset->filename = $filename;
         $asset->newFolderId = $folder->id;
         $asset->setVolumeId($folder->volumeId);
+        $asset->uploaderId = User::findOne()->id;
         $asset->avoidFilenameConflicts = true;
         $asset->setScenario(Asset::SCENARIO_CREATE);
         $res = Craft::$app->getElements()->saveElement($asset);
+
+        if (!$res) {
+            blogify_log("Failed to save image");
+        }
 
         return $asset;
     }

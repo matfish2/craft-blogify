@@ -35,6 +35,7 @@
   },
   "extra": {
     "name": "Blogify",
-    "handle": "blogify"
+    "handle": "blogify",
+    "class": "matfish\\Blogify\\Blogify"
   }
 }

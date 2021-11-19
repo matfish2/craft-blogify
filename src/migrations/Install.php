@@ -12,6 +12,7 @@ use matfish\Blogify\migrations\Migrators\BlogChannelMigrator;
 use matfish\Blogify\migrations\Migrators\BlogFieldGroupMigrator;
 use matfish\Blogify\migrations\Migrators\BlogListingMigrator;
 use matfish\Blogify\migrations\Migrators\BlogTagsMigrator;
+use matfish\Blogify\migrations\Migrators\BlogThumbnailTransform;
 use matfish\Blogify\migrations\Migrators\CopyTemplatesMigrator;
 use matfish\Blogify\migrations\Migrators\PostFieldsMigrator;
 use matfish\Blogify\migrations\Migrators\TagPageMigrator;
@@ -32,6 +33,7 @@ class Install extends Migration
             BlogTagsMigrator::add();
             BlogFieldGroupMigrator::add();
             BlogAssetsVolumeMigrator::add();
+            BlogThumbnailTransform::add();
             TagPageMigrator::add();
             AuthorPageMigrator::add();
             PostFieldsMigrator::add();
@@ -47,6 +49,7 @@ class Install extends Migration
         BlogCategoriesMigrator::remove();
         BlogTagsMigrator::remove();
         BlogAssetsVolumeMigrator::remove();
+        BlogThumbnailTransform::remove();
         TagPageMigrator::remove();
         AuthorPageMigrator::remove();
         PostFieldsMigrator::remove();
@@ -54,6 +57,7 @@ class Install extends Migration
         \Craft::$app->cache->delete(Handles::CHANNEL);
         \Craft::$app->cache->delete(Handles::LISTING);
         \Craft::$app->cache->delete(Handles::CATEGORIES);
+        \Craft::$app->cache->delete(Handles::TAGS);
 
     }
 }

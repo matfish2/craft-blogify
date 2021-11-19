@@ -3,21 +3,25 @@
         <div class="row">
             {% paginate posts as pageInfo, pageEntries %}
             {% for post in pageEntries %}
-            {% set authorPhoto = post.author.photo ? post.author.photo.url : ''  %}
+                {% set authorPhoto = post.author.photo ? post.author.photo.url : '' %}
                 <div class="col-lg-4 mb-4">
                     <div class="entry2">
-                        <a href="{{ post.url }}"><img src="{{ post.image.url }}" alt="{{ post.image.title }}"
-                                                      class="img-fluid rounded"></a>
+                        <a href="{{ post.url }}">
+                            {% include 'blogify/_partials/postThumbnail' with {image:post.image,class:'img-fluid rounded'} %}
                         <div class="excerpt">
                             {% for category in post.categories.all() %}
-                                <a href="{{ siteUrl }}/blog/category/{{ category.slug }}" class="post-category text-white bg-secondary mb-3">{{ category }}</a>
+                                <a href="{{ siteUrl }}/blog/category/{{ category.slug }}"
+                                   class="post-category text-white bg-secondary mb-3">{{ category }}</a>
                             {% endfor %}
                             <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
                             <div class="post-meta align-items-center text-left clearfix">
-                                <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ authorPhoto }}"
-                                                                                        alt="{{ post.author.fullName }}"
-                                                                                        class="img-fluid"></figure>
-                                <span class="d-inline-block mt-1">By <a href="{{ siteUrl }}blog/author/?author={{ post.author.username }}">{{ post.author.fullName }}</a></span>
+                                <figure class="author-figure mb-0 mr-3 float-left">
+                                    <img src="{{ authorPhoto }}"
+                                         alt="{{ post.author.fullName }}"
+                                         class="img-fluid">
+                                </figure>
+                                <span class="d-inline-block mt-1">By <a
+                                            href="{{ siteUrl }}blog/author/?author={{ post.author.username }}">{{ post.author.fullName }}</a></span>
                                 <span>&nbsp;-&nbsp; {{ post.postDate | date }}</span>
                             </div>
                             {{ post.excerpt }}

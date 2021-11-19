@@ -33,7 +33,7 @@
                 <div class="col-md-12 col-lg-8 main-content">
 
                     <div class="post-content-body">
-                        {{ entry.blogifyPostContent }}
+                        {{ entry.content | raw }}
                     </div>
 
                     <div class="pt-5">
@@ -97,10 +97,10 @@
                         <h3 class="heading">Recent Posts</h3>
                         <div class="post-entry-sidebar">
                             <ul>
-                                {% for post in entry.getRecentPosts.limit(4).all() %}
+                                {% for post in blogifyRecentPosts().limit(4).all() %}
                                     <li>
                                         <a href="{{ post.url }}">
-                                            <img src="{{ post.image.url }}" alt="{{ post.image.title }}" class="mr-4">
+                                            {% include 'blogify/_partials/postThumbnail' with {image: post.image, class:"mr-4"} %}
                                             <div class="text">
                                                 <h4>{{ post.title }}</h4>
                                                 <div class="post-meta">
@@ -118,9 +118,9 @@
                     <div class="sidebar-box">
                         <h3 class="heading">Categories</h3>
                         <ul class="categories">
-                            {% for category in entry.usedCategories %}
+                            {% for category in blogify.usedCategories.all() %}
                                 <li><a href="{{ category.url }}">{{ category.title }}
-                                        <span>({{ entry.getCategoryCount(category) }})</span></a></li>
+                                        <span>({{ category.posts.count() }})</span></a></li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -129,7 +129,7 @@
                     <div class="sidebar-box">
                         <h3 class="heading">Tags</h3>
                         <ul class="tags">
-                            {% for tag in entry.allTags %}
+                            {% for tag in blogify.tags.all() %}
                                 <li><a href="{{ siteUrl }}blog/tag?tag={{ tag.id }}">{{ tag }}</a></li>
                             {% endfor %}
                         </ul>

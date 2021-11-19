@@ -2,15 +2,15 @@
 
 namespace matfish\Blogify\twigextensions;
 
-use Craft;
 use craft\elements\Category;
 use craft\elements\Entry;
 use craft\elements\Tag;
 use matfish\Blogify\Handles;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
+use Twig\TwigFunction;
 
-class BlogGlobalsTwigExtension extends AbstractExtension implements GlobalsInterface
+class BlogTwigExtension extends AbstractExtension implements GlobalsInterface
 {
 
     public function getGlobals()
@@ -22,6 +22,28 @@ class BlogGlobalsTwigExtension extends AbstractExtension implements GlobalsInter
                 'tags' => Tag::find()->groupId($this->getTagsGroupId())
             ]
         ];
+    }
+
+    public function getFunctions()
+    {
+        return [
+            new TwigFunction('blogifyRecentPosts', [$this, 'getRecentPosts']),
+            new TwigFunction('blogifySearch', [$this, 'search'])
+        ];
+    }
+
+    public function getRecentPosts()
+    {
+        return Entry::find()
+            ->section(Handles::CHANNEL)
+            ->orderBy('postDate desc');
+    }
+
+    public function search($query)
+    {
+        return Entry::find()
+            ->section(Handles::CHANNEL)
+            ->search($query);
     }
 
 

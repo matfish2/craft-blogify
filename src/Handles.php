@@ -14,6 +14,7 @@ interface Handles
     const TAGS = 'blogifyTags';
     const TAG_PAGE = 'blogifyTagPage';
     const AUTHOR_PAGE = 'blogifyAuthorPage';
+    const THUMBNAIL_TRANSFORM = 'blogifyThumbnail';
 
     const POST_CONTENT = 'blogifyPostContent';
     const POST_EXCERPT = 'blogifyPostExcerpt';
