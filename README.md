@@ -29,6 +29,7 @@ Blogify adds the following data structures to Craft:
 5. A "Blog Tags" tag group
 6. A "Tag Page" single (All posts with a given tag)
 7. A "Blog Assets" assets volume.
+8. A "Blog Thumbnail" transform.
 
 Each Post in the Blog channel has the following fields:
 1. Title
@@ -116,7 +117,11 @@ return [
 ```
 
 
-### Gotchas
-* Don't change the handles for any of the entities.
-* Uninstalling the plugin will remove all data including templates.
+### Modification
+Blogify is designed as a solid starting point for a blog.
+You can freely extend and modify the data structures and templates, while keeping the following in mind:
+
+* Don't change the handles on any of the entities.
+* Don't delete any data structures.
+* Uninstalling the plugin will remove all data including the `blogify` templates folder.
 
