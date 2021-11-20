@@ -13,19 +13,10 @@ use craft\elements\User;
 use craft\helpers\Assets;
 use craft\services\Path;
 use craft\records\VolumeFolder;
-use Faker\Factory;
 use matfish\Blogify\Handles;
-use yii\web\BadRequestHttpException;
 
 class SeedingService
 {
-    protected $factory;
-
-    public function __construct()
-    {
-        $this->factory = Factory::create();
-    }
-
     public function seed()
     {
         $tags = $this->generateTags();
@@ -40,14 +31,14 @@ class SeedingService
             'siteId' => Craft::$app->getSites()->getPrimarySite()->id,
             'typeId' => $entryType->id,
             'authorId' => User::find()->one()->id,
-            'title' => $this->factory->sentence,
+            'title' => FakerService::sentence(),
         ]);
 
-        $entry->setFieldValue(Handles::POST_IMAGE, [$this->factory->randomElement($images)]);
-        $entry->setFieldValue(Handles::POST_EXCERPT, $this->factory->paragraph);
-        $entry->setFieldValue(Handles::POST_CONTENT, implode('<br><br>', $this->factory->paragraphs(10)));
-        $entry->setFieldValue(Handles::POST_TAGS, $this->factory->randomElements($tags, 3));
-        $entry->setFieldValue(Handles::POST_CATEGORIES, $this->factory->randomElements($categories, 2));
+        $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);
+        $entry->setFieldValue(Handles::POST_EXCERPT, FakerService::paragraph(3));
+        $entry->setFieldValue(Handles::POST_CONTENT, FakerService::paragraphs());
+        $entry->setFieldValue(Handles::POST_TAGS, FakerService::arrayElements($tags, 3));
+        $entry->setFieldValue(Handles::POST_CATEGORIES, FakerService::arrayElements($categories, 2));
 
         Craft::$app->getElements()->saveElement($entry);
     }

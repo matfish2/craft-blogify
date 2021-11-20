@@ -14,11 +14,10 @@ class CopyTemplatesMigrator extends Migrator
         $source = realpath(__DIR__ . '/../../templates/' . Handles::PLUGIN);
 
         if (!is_dir(self::getDestinationFolder())) {
-            echo "Copying blogify template...";
+            blogify_log("Copying blogify templates...");
             self::copyFolder($source, self::getDestinationFolder());
-            echo "Copied blogify templates";
         } else {
-            echo "Blogify templates already exist. Skipping";
+            blogify_log("Blogify templates already exist. Skipping");
         }
 
         return true;

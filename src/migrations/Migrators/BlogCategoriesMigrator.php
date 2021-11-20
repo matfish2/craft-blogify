@@ -23,7 +23,7 @@ class BlogCategoriesMigrator extends Migrator
         ]);
 
         $categoryGroup = new CategoryGroup([
-                'name' => 'Blogify Categories',
+                'name' => 'Blog Categories',
                 'handle' => Handles::CATEGORIES,
             ]
         );
@@ -35,17 +35,17 @@ class BlogCategoriesMigrator extends Migrator
 
     public static function remove(): bool
     {
-        echo "Deleting category group";
+        blogify_log("Removing category group");
 
         $group = Craft::$app->categories->getGroupByHandle(Handles::CATEGORIES);
 
         if ($group) {
             try {
                 $res =  Craft::$app->categories->deleteGroup($group);
-                echo $res ? 'Deleted categories group' : 'Failed to delete categories group';
+                blogify_log($res ? 'Deleted categories group' : 'Failed to delete categories group');
                 return $res;
             } catch (\Exception $e) {
-                echo "Failed to delete category group with message " . $e->getMessage();
+                blogify_log("Failed to delete category group with message " . $e->getMessage());
             }
         }
 

@@ -28,10 +28,10 @@ class BlogTagsMigrator extends Migrator
         if ($group) {
             try {
                 $res = Craft::$app->tags->deleteTagGroup($group);
-                self::log($res ? 'Deleted tags group' : 'Failed to delete tag group');
+                blogify_log($res ? 'Deleted tags group' : 'Failed to delete tag group');
                 return $res;
             } catch (\Exception $e) {
-                self::log('Failed to delete tag group with message ' . $e->getMessage());
+                blogify_log('Failed to delete tag group with message ' . $e->getMessage());
             }
         }
 

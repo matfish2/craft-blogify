@@ -10,7 +10,10 @@ Once installed the plugin crates the data structure and templates, and allows fo
 ```
 composer require matfish/craft-blogify
 ```
-2. Install the plugin from Craft's control panel.
+2. Install the plugin: 
+```
+php craft plugin/install blogify
+```
 3. (Optional but recommended for development) Seed some posts:
 ```
 php craft blogify/seed

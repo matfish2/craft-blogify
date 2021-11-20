@@ -13,6 +13,8 @@ class BlogAssetsVolumeMigrator extends Migrator
 
     public static function add(): bool
     {
+        blogify_log("Adding assets volume...");
+
         $volumesService = Craft::$app->getVolumes();
 
         $volume = $volumesService->createVolume([
@@ -33,16 +35,17 @@ class BlogAssetsVolumeMigrator extends Migrator
 
     public static function remove(): bool
     {
+        blogify_log("Removing assets volume...");
+
         $volume = Craft::$app->volumes->getVolumeByHandle(Handles::ASSETS);
 
         if ($volume) {
             try {
                 $res = Craft::$app->getVolumes()->deleteVolumeById($volume->id);
-                self::log($res ? 'Deleted assets volume' : 'Failed to delete assets volume');
+                blogify_log($res ? 'Deleted assets volume' : 'Failed to delete assets volume');
                 return $res;
             } catch (\Exception $e) {
-                self::log(json_encode($e));
-                self::log('Failed to delete assets volume with message ' . $e->getMessage());
+                blogify_log('Failed to delete assets volume with message ' . $e->getMessage());
             }
         }
 

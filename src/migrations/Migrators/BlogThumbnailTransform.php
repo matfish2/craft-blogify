@@ -13,6 +13,8 @@ class BlogThumbnailTransform extends Migrator
 
     public static function add(): bool
     {
+        blogify_log("Adding thumbnail transform...");
+
         $transform = new AssetTransform();
         $transform->name = 'Blog Thumbnail';
         $transform->handle = Handles::THUMBNAIL_TRANSFORM;
@@ -22,7 +24,6 @@ class BlogThumbnailTransform extends Migrator
         $transform->position = 'center-center';
         $transform->quality = 0;
         $transform->interlace = 'none';
-//        $transform->format = $this->request->getBodyParam('format');
 
         $success = Craft::$app->getAssetTransforms()->saveTransform($transform);
 
@@ -35,6 +36,8 @@ class BlogThumbnailTransform extends Migrator
 
     public static function remove(): bool
     {
+        blogify_log("Removing thumbnail transform...");
+
         $transform = Craft::$app->getAssetTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
 
         if ($transform) {

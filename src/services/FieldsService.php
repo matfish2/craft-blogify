@@ -16,6 +16,8 @@ class FieldsService
             return $field;
         }
 
+        blogify_log("Creating field {$name}");
+
         $groupId = $this->getFieldGroupId();
         $fieldsService = Craft::$app->getFields();
 
@@ -46,6 +48,8 @@ class FieldsService
 
     public function remove($handle): bool
     {
+        blogify_log("Removing field {$handle}");
+
         $field = Craft::$app->fields->getFieldByHandle($handle);;
 
         if ($field) {

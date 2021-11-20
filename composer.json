@@ -21,8 +21,7 @@
   },
   "require": {
     "craftcms/cms": "^3.7.0",
-    "craftcms/redactor": "^2.8",
-    "fzaninotto/faker": "^1.5"
+    "craftcms/redactor": "^2.8"
   },
   "autoload": {
     "psr-4": {

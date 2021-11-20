@@ -9,8 +9,10 @@ use craft\models\Section_SiteSettings;
 class SectionService
 {
 
-    public function add($name, $handle, $type, $url, $template) : bool
+    public function add($name, $handle, $type, $url, $template): bool
     {
+        blogify_log("Creating section {$name}");
+
         $section = new Section([
             'name' => $name,
             'handle' => $handle,
@@ -29,9 +31,11 @@ class SectionService
         return Craft::$app->sections->saveSection($section);
     }
 
-    public function remove($handle) : bool
+    public function remove($handle): bool
     {
-         $section = Craft::$app->sections->getSectionByHandle($handle);
+        blogify_log("Removing section {$handle}");
+
+        $section = Craft::$app->sections->getSectionByHandle($handle);
 
         if ($section) {
             return Craft::$app->sections->deleteSection($section);

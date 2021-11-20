@@ -23,6 +23,7 @@ class Install extends Migration
     {
 
         if (Craft::$app->projectConfig->get('plugins.blogify', true) === null) {
+            blogify_log("Installing Redactor...");
             Craft::$app->getPlugins()->installPlugin('redactor');
 
             CopyTemplatesMigrator::add();
@@ -54,6 +55,7 @@ class Install extends Migration
         AuthorPageMigrator::remove();
         PostFieldsMigrator::remove();
 
+        blogify_log("Deleting cached keys...");
         \Craft::$app->cache->delete(Handles::CHANNEL);
         \Craft::$app->cache->delete(Handles::LISTING);
         \Craft::$app->cache->delete(Handles::CATEGORIES);
