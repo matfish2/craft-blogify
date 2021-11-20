@@ -1,2 +1,2 @@
-# Release Notes for Craft Blog
+# Release Notes for Blogify
 
