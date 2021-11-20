@@ -79,7 +79,7 @@ In addition, entities contain contextual methods, as follows:
 
 #### Tag
 
-* `posts` get post that have the given tag
+* `posts` get posts that have the given tag
 
 #### User (Author)
 
@@ -93,7 +93,7 @@ By default the provided Post Content field is a Redactor field.
 If you wish to use the powerful Matrix field instead, we've got your back:
 * Go to Settings->Fields->Post Content
 * Change field type to Matrix and build your blocks.
-* Add a `_matrix` folder under `blogify\post`
+* Add a `_matrix` folder under `blogify/post`
 * Add a template for each block type, named after the handle. 
 
 Each partial will expose a `block` variable containing all the fields.
