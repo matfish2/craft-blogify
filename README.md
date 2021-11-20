@@ -123,7 +123,7 @@ return [
 ```
 
 
-### Modification
+## Modification
 Blogify is designed as a solid starting point for a blog.
 You can freely extend and modify the data structures and templates, while keeping the following in mind:
 
@@ -131,3 +131,8 @@ You can freely extend and modify the data structures and templates, while keepin
 * Don't delete any data structures.
 * Uninstalling the plugin will remove all data including the `blogify` templates folder.
 
+## License
+This plugin requires a commercial license purchasable through the [Craft Plugin Store](https://plugins.craftcms.com/blogify).
+
+## Requirements
+This plugin requires Craft CMS 3.7.0 or later.
