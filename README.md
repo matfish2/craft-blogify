@@ -4,6 +4,8 @@ Blogify offers a single-click solution to the task of building a blog with Craft
 
 Once installed the plugin crates the data structure and templates, and allows for seeding of fake posts, so you can start customizing your blog right away. Blogify comes with a bunch of Twig enhancements that make the code in your templates declarative and simple.
 
+Check out the result [here](https://blogify.frb.io/blog/index). 
+
 ## Installation
 
 1. Include the package:
