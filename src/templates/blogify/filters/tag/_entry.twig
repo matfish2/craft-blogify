@@ -1,7 +1,7 @@
 {% extends 'blogify/_layout' %}
 {% set tag = craft.tags().id(craft.app.request.getQueryParam('tag')).one() %}
 {% if (not tag) %}
-    {% redirect '/blog' %}
+    {% redirect '/blog/index' %}
 {% endif %}
 
 {% block content %}

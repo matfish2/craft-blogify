@@ -1,7 +1,7 @@
 {% extends 'blogify/_layout' %}
 {% set author = craft.users().username(craft.app.request.getQueryParam('author')).one() %}
 {% if (not author) %}
-    {% redirect '/blog' %}
+    {% redirect '/blog/index' %}
 {% endif %}
 
 {% block content %}
