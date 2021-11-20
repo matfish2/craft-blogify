@@ -1,6 +1,6 @@
 {
   "name": "matfish/craft-blogify",
-  "description": "Generates a blog for CraftCMS including boilerplate templates",
+  "description": "A plug-and-play blog for CraftCMS",
   "type": "craft-plugin",
   "keywords": [
     "blog",
