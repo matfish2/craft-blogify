@@ -17,6 +17,10 @@ class PostFieldsBehavior extends Behavior
         return $this->owner->blogifyPostImage->one();
     }
 
+    public function thumbnail() {
+        return $this->getImage()->setTransform(Handles::THUMBNAIL_TRANSFORM);
+    }
+
     public function getExcerpt()
     {
         return $this->owner->blogifyPostExcerpt;

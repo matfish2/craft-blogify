@@ -100,7 +100,7 @@
                                 {% for post in blogifyRecentPosts().limit(4).all() %}
                                     <li>
                                         <a href="{{ post.url }}">
-                                            {% include 'blogify/_partials/postThumbnail' with {image: post.image, class:"mr-4"} %}
+                                            <img src="{{ post.thumbnail.url }}" alt="{{ post.thumbnail.title }}" class="mr-4">
                                             <div class="text">
                                                 <h4>{{ post.title }}</h4>
                                                 <div class="post-meta">
@@ -155,7 +155,7 @@
                     <div class="two-col d-block d-md-flex mb-4">
                         {% for post in entry.relatedPosts.limit(4).all() %}
                             <a href="{{ post.url }}" class="hentry v-height img-2 gradient ml-2"
-                               style="background-image: url({{ post.image.url }});">
+                               style="background-image: url({{ post.thumbnail.url }});">
                             <span class="post-category text-white bg-primary">
                                 {{ post.categories[0] }}
                             </span>

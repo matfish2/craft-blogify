@@ -69,6 +69,7 @@ In addition, entities contain contextual methods, as follows:
 * `next` get next post
 * `prev` get previous post
 * `image` get post image
+* `thumbnail` get post thumbnail (defined under Settings->Assets->Image Transforms->Blog Thumbnail)
 * `excerpt` get post excerpt
 * `content` get post content (supports Matrix field rendering. See below)
 
