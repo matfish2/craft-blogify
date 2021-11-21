@@ -11,7 +11,7 @@
                                  class="img-fluid rounded">
                             <div class="excerpt">
                                 {% for category in post.categories.all() %}
-                                    <a href="{{ siteUrl }}/blog/category/{{ category.slug }}"
+                                    <a href="{{ siteUrl }}blog/category/{{ category.slug }}"
                                        class="post-category text-white bg-secondary mb-3">{{ category }}</a>
                                 {% endfor %}
                                 <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
