@@ -34,7 +34,7 @@
   "extra": {
     "name": "Blogify",
     "handle": "blogify",
-    "changelogUrl": "https://raw.githubusercontent.com/matfish2/craft-blogify/master/README.md",
+    "changelogUrl": "https://raw.githubusercontent.com/matfish2/craft-blogify/master/CHANGELOG.md",
     "class": "matfish\\Blogify\\Blogify"
   }
 }
