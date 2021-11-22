@@ -1,4 +1,5 @@
 # Release Notes for Blogify
+
 ## 1.0.2 - 2021-11-22
 ### Improved Security
 - Added existence check to `Install@safeDown`
@@ -9,5 +10,5 @@
 - Removed double backslash on category link 
 
 ## 1.0.0 - 2021-11-20
-
+### Added
 - Initial Release
