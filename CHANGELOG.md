@@ -1,9 +1,13 @@
 # Release Notes for Blogify
 
+## 1.0.3 - 2021-11-22
+### Changed
+- Changed logo
+
 ## 1.0.2 - 2021-11-22
-### Improved Security
+### Added
 - Added existence check to `Install@safeDown`
-- Add existence checks to all data structure creation code
+- Added existence checks to all data structure creation code
 
 ## 1.0.1 - 2021-11-21
 ### Fixed
