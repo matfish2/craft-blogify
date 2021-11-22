@@ -13,6 +13,13 @@ class BlogCategoriesMigrator extends Migrator
 {
     public static function add(): bool
     {
+        $group = Craft::$app->categories->getGroupByHandle(Handles::CATEGORIES);
+
+        if ($group) {
+            blogify_log("Category group already exists. Skipping.");
+            return true;
+        }
+
         $siteId = Craft::$app->sites->getPrimarySite()->id;
 
         $siteSettings = new CategoryGroup_SiteSettings([
@@ -41,7 +48,7 @@ class BlogCategoriesMigrator extends Migrator
 
         if ($group) {
             try {
-                $res =  Craft::$app->categories->deleteGroup($group);
+                $res = Craft::$app->categories->deleteGroup($group);
                 blogify_log($res ? 'Deleted categories group' : 'Failed to delete categories group');
                 return $res;
             } catch (\Exception $e) {

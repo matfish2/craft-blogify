@@ -13,6 +13,13 @@ class BlogThumbnailTransform extends Migrator
 
     public static function add(): bool
     {
+        $transform = Craft::$app->getAssetTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
+
+        if ($transform) {
+            blogify_log("Thumbnail transform already exists. Skipping");
+            return true;
+        }
+
         blogify_log("Adding thumbnail transform...");
 
         $transform = new AssetTransform();

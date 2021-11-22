@@ -10,17 +10,19 @@ class BlogFieldGroupMigrator extends Migrator
 {
     public static function add(): bool
     {
-       $group = new FieldGroup([
+        blogify_log("Adding Blog Fields group");
+
+        $group = new FieldGroup([
             'name' => 'Blog Fields'
         ]);
 
-       return Craft::$app->fields->saveGroup($group);
+        return Craft::$app->fields->saveGroup($group);
 
     }
 
     public static function remove(): bool
     {
-        // removed by BlogChannelMigrator
+        // removed by BlogChannelMigrator?
         return true;
     }
 }

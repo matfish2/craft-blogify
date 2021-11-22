@@ -15,6 +15,13 @@ class BlogAssetsVolumeMigrator extends Migrator
     {
         blogify_log("Adding assets volume...");
 
+        $volume = Craft::$app->volumes->getVolumeByHandle(Handles::ASSETS);
+
+        if ($volume) {
+            blogify_log("Volume already exists. Skipping.");
+            return true;
+        }
+
         $volumesService = Craft::$app->getVolumes();
 
         $volume = $volumesService->createVolume([

@@ -21,8 +21,7 @@ class Install extends Migration
 {
     public function safeUp()
     {
-
-        if (Craft::$app->projectConfig->get('plugins.blogify', true) === null) {
+        if (!$this->_pluginExistsInProjectConfig()) {
             blogify_log("Installing Redactor...");
             Craft::$app->getPlugins()->installPlugin('redactor');
 
@@ -43,23 +42,29 @@ class Install extends Migration
 
     public function safeDown()
     {
-        CopyTemplatesMigrator::remove();
+        if ($this->_pluginExistsInProjectConfig()) {
+            CopyTemplatesMigrator::remove();
 
-        BlogChannelMigrator::remove();
-        BlogListingMigrator::remove();
-        BlogCategoriesMigrator::remove();
-        BlogTagsMigrator::remove();
-        BlogAssetsVolumeMigrator::remove();
-        BlogThumbnailTransform::remove();
-        TagPageMigrator::remove();
-        AuthorPageMigrator::remove();
-        PostFieldsMigrator::remove();
+            BlogChannelMigrator::remove();
+            BlogListingMigrator::remove();
+            BlogCategoriesMigrator::remove();
+            BlogTagsMigrator::remove();
+            BlogAssetsVolumeMigrator::remove();
+            BlogThumbnailTransform::remove();
+            TagPageMigrator::remove();
+            AuthorPageMigrator::remove();
+            PostFieldsMigrator::remove();
 
-        blogify_log("Deleting cached keys...");
-        \Craft::$app->cache->delete(Handles::CHANNEL);
-        \Craft::$app->cache->delete(Handles::LISTING);
-        \Craft::$app->cache->delete(Handles::CATEGORIES);
-        \Craft::$app->cache->delete(Handles::TAGS);
+            blogify_log("Deleting cached keys...");
+            \Craft::$app->cache->delete(Handles::CHANNEL);
+            \Craft::$app->cache->delete(Handles::LISTING);
+            \Craft::$app->cache->delete(Handles::CATEGORIES);
+            \Craft::$app->cache->delete(Handles::TAGS);
+        }
+    }
 
+    private function _pluginExistsInProjectConfig(): bool
+    {
+        return Craft::$app->projectConfig->get('plugins.blogify', true) !== null;
     }
 }

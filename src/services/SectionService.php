@@ -13,6 +13,13 @@ class SectionService
     {
         blogify_log("Creating section {$name}");
 
+        $section = Craft::$app->sections->getSectionByHandle($handle);
+
+        if ($section) {
+            blogify_log("Section {$name} exists. Skipping");
+            return true;
+        }
+
         $section = new Section([
             'name' => $name,
             'handle' => $handle,
