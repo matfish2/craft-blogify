@@ -1236,3 +1236,7 @@ h1, h2, h3, h4, h5,
       outline: none; }
   .search-form-wrap form .form-control {
     border: none; }
+
+  .post-content-body h2 {
+    font-size: 1.5rem;
+  }

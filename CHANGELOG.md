@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## UNRELEASED - 2021-11-23
+### Improved
+- Added subheadings to fake post content
+
 ## 1.0.4 - 2021-11-23
 ### Fixed
 - Made search exact

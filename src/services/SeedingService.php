@@ -36,7 +36,7 @@ class SeedingService
 
         $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);
         $entry->setFieldValue(Handles::POST_EXCERPT, FakerService::paragraph(3));
-        $entry->setFieldValue(Handles::POST_CONTENT, FakerService::paragraphs());
+        $entry->setFieldValue(Handles::POST_CONTENT, FakerService::postContent());
         $entry->setFieldValue(Handles::POST_TAGS, FakerService::arrayElements($tags, 3));
         $entry->setFieldValue(Handles::POST_CATEGORIES, FakerService::arrayElements($categories, 2));
 

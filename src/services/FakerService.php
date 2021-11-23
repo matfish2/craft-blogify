@@ -43,12 +43,12 @@ class FakerService
         'voluptates', 'repudiandae', 'sint', 'et', 'molestiae', 'non',
         'recusandae', 'itaque', 'earum', 'rerum', 'hic', 'tenetur', 'a',
         'sapiente', 'delectus', 'ut', 'aut', 'reiciendis', 'voluptatibus',
-        'maiores', 'doloribus', 'asperiores', 'repellat'
+        'maiores', 'doloribus', 'asperiores', 'repellat','superbum'
     ];
 
-    public static function sentence()
+    public static function sentence($l = null)
     {
-        $l = rand(8, 14);
+        $l = $l ?: rand(8, 14);
 
         return self::words($l);
     }
@@ -63,21 +63,19 @@ class FakerService
             $res[] = self::sentence();
         }
 
-        return implode('. ', $res);
+        return implode('. ', $res) . '.';
     }
 
-    public static function paragraphs()
+
+    public static function postContent()
     {
-        $n = rand(5, 8);
+        $html = '<p>' . self::paragraph(3) . '</p>';
+        $html .= self::subheading();
+        $html .= self::paragraphs(2);
+        $html .= self::subheading();
+        $html .= self::paragraphs(3);
 
-        $res = [];
-
-        for ($i = 1; $i <= $n; $i++) {
-            $res[] = '<p>' . self::paragraph() . '</p>';
-        }
-
-        return implode('', $res);
-
+        return $html;
     }
 
     public static function arrayElement($arr)
@@ -106,4 +104,24 @@ class FakerService
 
         return implode(' ', $res);
     }
+
+    private static function subheading()
+    {
+        return '<h2>' . self::sentence(rand(6,8)) . '</h2>';
+    }
+
+    private static function paragraphs($n = null)
+    {
+        $n = $n ?: rand(2, 3);
+
+        $res = [];
+
+        for ($i = 1; $i <= $n; $i++) {
+            $res[] = '<p>' . self::paragraph() . '</p>';
+        }
+
+        return implode('', $res);
+
+    }
+
 }
