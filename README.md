@@ -132,7 +132,10 @@ You can freely extend and modify the data structures and templates, while keepin
 * Uninstalling the plugin will remove all data including the `blogify` templates folder.
 
 ## License
-This plugin requires a commercial license purchasable through the [Craft Plugin Store](https://plugins.craftcms.com/blogify).
+You can try Blogify in a development environment for as long as you like. Once your site goes live, you are required to purchase a license for the plugin.
+License is purchasable through the [Craft Plugin Store](https://plugins.craftcms.com/blogify).
+
+For more information, see Craft's [Commercial Plugin Licensing](https://craftcms.com/docs/3.x/plugins.html#commercial-plugin-licensing).
 
 ## Requirements
 This plugin requires Craft CMS 3.7.0 or later.
