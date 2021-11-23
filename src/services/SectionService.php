@@ -35,7 +35,13 @@ class SectionService
             ]
         ]);
 
-        return Craft::$app->sections->saveSection($section);
+        if (!Craft::$app->sections->saveSection($section)) {
+            blogify_log("Failed to create section {$name}");
+            blogify_log(json_encode($section->getErrors()));
+            throw new \Exception("Failed to create section {$name}");
+        }
+
+        return true;
     }
 
     public function remove($handle): bool

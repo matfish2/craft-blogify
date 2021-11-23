@@ -49,6 +49,7 @@ class Install extends Migration
             BlogListingMigrator::remove();
             BlogCategoriesMigrator::remove();
             BlogTagsMigrator::remove();
+            BlogFieldGroupMigrator::remove();
             BlogAssetsVolumeMigrator::remove();
             BlogThumbnailTransform::remove();
             TagPageMigrator::remove();

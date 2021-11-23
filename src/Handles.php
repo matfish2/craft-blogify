@@ -21,4 +21,7 @@ interface Handles
     const POST_IMAGE = 'blogifyPostImage';
     const POST_TAGS = 'blogifyPostTags';
     const POST_CATEGORIES = 'blogifyPostCategories';
+
+    // Field group does not have a handle
+    const BLOG_FIELDS_GROUP_NAME= 'Blog Fields';
 }

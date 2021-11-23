@@ -1,5 +1,11 @@
 # Release Notes for Blogify
 
+## 1.0.6 - 2021-11-23
+### Improved
+- Abort installation if section creation fails 
+- Refactor field group query
+- Remove field group on uninstall
+
 ## 1.0.5 - 2021-11-23
 ### Improved
 - Added subheadings to fake post content

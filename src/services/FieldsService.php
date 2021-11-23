@@ -5,6 +5,8 @@ namespace matfish\Blogify\services;
 
 
 use Craft;
+use craft\records\FieldGroup;
+use matfish\Blogify\Handles;
 
 class FieldsService
 {
@@ -61,12 +63,18 @@ class FieldsService
 
     private function getFieldGroupId()
     {
-        $res = (new Craft\db\Query)->select(['id'])
-            ->from(getenv('DB_TABLE_PREFIX') . 'fieldgroups')
-            ->where("name='Blog Fields'")
-            ->andWhere('dateDeleted is null')
-            ->all();
+        $group = FieldGroup::findOne([
+            'name' => Handles::BLOG_FIELDS_GROUP_NAME
+        ]);
 
-        return $res[0]['id'];
+        if ($group) {
+            return $group->id;
+        }
+
+        $group = FieldGroup::findOne('1=1');
+
+        blogify_log("Failed to find blog fields group. Using {$group->name} group instead");
+
+        return $group->id;
     }
 }
