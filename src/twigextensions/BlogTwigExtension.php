@@ -43,7 +43,7 @@ class BlogTwigExtension extends AbstractExtension implements GlobalsInterface
     {
         return Entry::find()
             ->section(Handles::CHANNEL)
-            ->search($query);
+            ->search('"' . $query . '"');
     }
 
 

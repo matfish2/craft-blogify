@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## 1.0.4 - 2021-11-23
+### Fixed
+- Made search exact
+
 ## 1.0.3 - 2021-11-22
 ### Changed
 - Changed logo
