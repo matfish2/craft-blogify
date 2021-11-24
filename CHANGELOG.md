@@ -1,6 +1,6 @@
 # Release Notes for Blogify
 
-### 1.0.7 - 2021-11-24
+## 1.0.7 - 2021-11-24
 ### Fixed 
 - Fixed author query
 
