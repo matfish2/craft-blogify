@@ -11,6 +11,6 @@ class AuthorPostsBehavior extends Behavior
 {
     public function getPosts()
     {
-        return Entry::find()->section(Handles::CHANNEL)->authorId($this->owner->id);
+        return Entry::find()->section(Handles::CHANNEL)->where('authorId='.$this->owner->id);
     }
 }
