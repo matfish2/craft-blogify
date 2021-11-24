@@ -9,6 +9,8 @@ use craft\elements\Entry;
 use craft\elements\Tag;
 use craft\elements\User;
 use craft\events\DefineBehaviorsEvent;
+use craft\events\TemplateEvent;
+use craft\web\View;
 use matfish\Blogify\behaviors\AuthorPostsBehavior;
 use matfish\Blogify\behaviors\CategoryPostsBehavior;
 use matfish\Blogify\behaviors\PostCategoriesBehavior;
@@ -17,6 +19,8 @@ use matfish\Blogify\behaviors\PostPaginationBehavior;
 use matfish\Blogify\behaviors\PostTagsBehavior;
 use matfish\Blogify\behaviors\TagPostsBehavior;
 use matfish\Blogify\models\Settings;
+use matfish\Blogify\services\IdsService;
+use matfish\Blogify\services\PostViewsService;
 use matfish\Blogify\twigextensions\BlogTwigExtension;
 use yii\base\Event;
 
@@ -29,10 +33,33 @@ class Blogify extends \craft\base\Plugin
         if (Craft::$app->getRequest()->getIsSiteRequest()) {
             $this->registerBehaviors();
             $this->registerTwigExtensions();
+
+            if (
+                (new PostViewsService)->enabled() &&
+                !in_array(Craft::$app->request->userIP, Blogify::getInstance()->settings->postViewsExcludeIps)
+            ) {
+                $this->registerPostViewEventHandler();
+            }
         }
 
         $this->registerControllers();
+    }
 
+    public function registerPostViewEventHandler()
+    {
+        Event::on(
+            View::class,
+            View::EVENT_AFTER_RENDER_PAGE_TEMPLATE,
+            function (TemplateEvent $event) {
+                if (isset($event->variables['entry'])) {
+                    $entry = $event->variables['entry'];
+                    $channelId = (new IdsService())->blogChannelId();
+                    if (isset($entry->sectionId) && (int)$entry->sectionId === $channelId) {
+                        (new PostViewsService())->increment($entry);
+                    }
+                }
+            }
+        );
     }
 
     protected function createSettingsModel()
@@ -46,7 +73,7 @@ class Blogify extends \craft\base\Plugin
             Category::class,
             Category::EVENT_DEFINE_BEHAVIORS,
             function (DefineBehaviorsEvent $event) {
-                if ((int)$event->sender->groupId === (int)$this->getCategoryGroupId()) {
+                if ((int)$event->sender->groupId === (new IdsService())->categoriesGroupId()) {
                     $event->sender->attachBehaviors([
                         CategoryPostsBehavior::class
                     ]);
@@ -84,7 +111,7 @@ class Blogify extends \craft\base\Plugin
                     return;
                 }
 
-                if ($event->sender->sectionId === $this->getSectionId(Handles::CHANNEL)) {
+                if ((int)$event->sender->sectionId === (new IdsService())->blogChannelId()) {
                     $event->sender->attachBehaviors([
                         PostPaginationBehavior::class,
                         PostCategoriesBehavior::class,
@@ -94,20 +121,6 @@ class Blogify extends \craft\base\Plugin
                 }
             }
         );
-    }
-
-    private function getSectionId($handle)
-    {
-        return \Craft::$app->cache->getOrSet($handle, function () use ($handle) {
-            return Craft::$app->sections->getSectionByHandle($handle)->id;
-        }, 60 * 60 * 24 * 365);
-    }
-
-    private function getCategoryGroupId()
-    {
-        return \Craft::$app->cache->getOrSet(Handles::CATEGORIES, function () {
-            return Craft::$app->categories->getGroupByHandle(Handles::CATEGORIES)->id;
-        }, 60 * 60 * 24 * 365);
     }
 
     private function registerControllers()

@@ -24,4 +24,8 @@ interface Handles
 
     // Field group does not have a handle
     const BLOG_FIELDS_GROUP_NAME= 'Blog Fields';
+
+    // optional. Generated via blogify/views/record command
+    const POST_VIEWS = 'blogifyPostViews';
+
 }

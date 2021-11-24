@@ -1,5 +1,11 @@
 # Release Notes for Blogify
 
+### Unreleased - 2021-11-24
+### Added
+- Added optional post views field to allow sorting by popularity
+### Changed
+- Refactored code
+
 ## 1.0.6 - 2021-11-23
 ### Improved
 - Abort installation if section creation fails 

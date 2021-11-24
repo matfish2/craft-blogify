@@ -8,6 +8,7 @@ use Craft;
 use craft\fields\Matrix;
 use matfish\Blogify\Blogify;
 use matfish\Blogify\Handles;
+use matfish\Blogify\services\PostViewsService;
 use yii\base\Behavior;
 
 class PostFieldsBehavior extends Behavior
@@ -17,7 +18,8 @@ class PostFieldsBehavior extends Behavior
         return $this->owner->blogifyPostImage->one();
     }
 
-    public function thumbnail() {
+    public function thumbnail()
+    {
         return $this->getImage()->setTransform(Handles::THUMBNAIL_TRANSFORM);
     }
 
@@ -49,5 +51,16 @@ class PostFieldsBehavior extends Behavior
         } else {
             return $this->owner->blogifyPostContent;
         }
+    }
+
+    public function views()
+    {
+        (new PostViewsService())->verifyEnabled();
+
+        if (isset($this->owner[Handles::POST_VIEWS])) {
+            return $this->owner[Handles::POST_VIEWS];
+        }
+
+        return null;
     }
 }

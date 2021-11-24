@@ -9,6 +9,7 @@ use craft\fields\Categories;
 use craft\fields\PlainText;
 use craft\fields\Tags;
 use matfish\Blogify\Handles;
+use matfish\Blogify\services\EntryTypeService;
 use matfish\Blogify\services\FieldsService;
 
 class PostFieldsMigrator extends Migrator
@@ -80,25 +81,13 @@ class PostFieldsMigrator extends Migrator
             ]
         );
 
-        $section = Craft::$app->sections->getSectionByHandle(Handles::CHANNEL);
-        $entryType = $section->getEntryTypes()[0];
-        $layout = $entryType->getFieldLayout();
-
-        $tabs = $layout->getTabs();
-
-        $tabs[0]->setFields([
+        return (new EntryTypeService())->addFields([
             $image,
             $excerpt,
             $content,
             $categories,
             $tags
         ]);
-
-        $layout->setTabs($tabs);
-
-        $entryType->setFieldLayout($layout);
-
-        return Craft::$app->sections->saveEntryType($entryType);
     }
 
     public static function remove(): bool

@@ -13,6 +13,8 @@ class BlogTagsMigrator extends Migrator
 {
     public static function add(): bool
     {
+        \Craft::$app->cache->delete(Handles::TAGS);
+
         $group = Craft::$app->tags->getTagGroupByHandle(Handles::TAGS);
 
         if ($group) {
@@ -31,6 +33,8 @@ class BlogTagsMigrator extends Migrator
 
     public static function remove(): bool
     {
+        \Craft::$app->cache->delete(Handles::TAGS);
+
         $group = Craft::$app->tags->getTagGroupByHandle(Handles::TAGS);
 
         if ($group) {

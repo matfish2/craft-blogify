@@ -15,7 +15,9 @@ use matfish\Blogify\migrations\Migrators\BlogTagsMigrator;
 use matfish\Blogify\migrations\Migrators\BlogThumbnailTransform;
 use matfish\Blogify\migrations\Migrators\CopyTemplatesMigrator;
 use matfish\Blogify\migrations\Migrators\PostFieldsMigrator;
+use matfish\Blogify\migrations\Migrators\PostViewsMigrator;
 use matfish\Blogify\migrations\Migrators\TagPageMigrator;
+use matfish\Blogify\services\PostViewsService;
 
 class Install extends Migration
 {
@@ -55,12 +57,7 @@ class Install extends Migration
             TagPageMigrator::remove();
             AuthorPageMigrator::remove();
             PostFieldsMigrator::remove();
-
-            blogify_log("Deleting cached keys...");
-            \Craft::$app->cache->delete(Handles::CHANNEL);
-            \Craft::$app->cache->delete(Handles::LISTING);
-            \Craft::$app->cache->delete(Handles::CATEGORIES);
-            \Craft::$app->cache->delete(Handles::TAGS);
+            PostViewsMigrator::remove();
         }
     }
 

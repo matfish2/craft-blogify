@@ -13,7 +13,7 @@ class BlogListingMigrator extends Migrator
 {
     public static function add(): bool
     {
-         return (new SectionService())->add('Blog Listing',
+        return (new SectionService())->add('Blog Listing',
             Handles::LISTING,
             Section::TYPE_SINGLE,
             '/index',

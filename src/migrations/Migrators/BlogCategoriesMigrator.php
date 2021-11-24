@@ -13,6 +13,8 @@ class BlogCategoriesMigrator extends Migrator
 {
     public static function add(): bool
     {
+        \Craft::$app->cache->delete(Handles::CATEGORIES);
+
         $group = Craft::$app->categories->getGroupByHandle(Handles::CATEGORIES);
 
         if ($group) {
@@ -42,6 +44,8 @@ class BlogCategoriesMigrator extends Migrator
 
     public static function remove(): bool
     {
+        \Craft::$app->cache->delete(Handles::CATEGORIES);
+
         blogify_log("Removing category group");
 
         $group = Craft::$app->categories->getGroupByHandle(Handles::CATEGORIES);
