@@ -31,7 +31,7 @@ class PostViewsService
         }
 
         // Dont increment drafts or preview
-        if (!$entry->enabled || $entry->previewing) {
+        if (!$entry->enabled || $entry->previewing || Craft::$app->request->isPreview) {
             return false;
         }
 
