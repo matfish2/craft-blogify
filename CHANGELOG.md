@@ -1,11 +1,12 @@
 # Release Notes for Blogify
 
-### Unreleased - 2021-11-24
+### 1.0.7 - 2021-11-24
 ### Fixed 
 - Fixed author query
 
 ### Added
 - Added optional post views field to allow sorting by popularity
+
 ### Changed
 - Refactored code
 - Seeding: Randomize author
