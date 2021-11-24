@@ -137,9 +137,9 @@ return [
 ];
 ```
 
-## Record post views (currently in dev-master. Released soon)
+## Record post views
 
-Blogify allows you track the popularity of your posts separately from Google Analytics, so you can sort by popularity
+Blogify allows you track the popularity of your posts, so you can sort by popularity
 and display number of views. This option is disabled by default. You can enable it with a single command:
 
 ```
@@ -156,7 +156,7 @@ to `config/blogify.php`:
 ```php
 return [
    'postViewsExcludeIps'=>[
-   '192.168.10.1'
+       '192.168.10.1'
   ]
 ];
 ```
