@@ -30,7 +30,7 @@ class SeedingService
             'sectionId' => $section->id,
             'siteId' => Craft::$app->getSites()->getPrimarySite()->id,
             'typeId' => $entryType->id,
-            'authorId' => User::find()->one()->id,
+            'authorId' => FakerService::arrayElement($this->getUsers()),
             'title' => FakerService::sentence(),
         ]);
 
@@ -153,5 +153,12 @@ class SeedingService
         }
 
         return $asset;
+    }
+
+    private function getUsers()
+    {
+        return array_map(function($user) {
+            return $user->id;
+        },User::findAll());
     }
 }
