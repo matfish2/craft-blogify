@@ -32,6 +32,7 @@ class SeedingService
             'typeId' => $entryType->id,
             'authorId' => FakerService::arrayElement($this->getUsers()),
             'title' => FakerService::sentence(),
+            'postDate'=>FakerService::date()
         ]);
 
         $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);

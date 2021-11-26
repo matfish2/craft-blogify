@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## 1.0.8 - 2021-11-26
+### Changed
+- Seeding: Randomize post date
+
 ## 1.0.7 - 2021-11-24
 ### Fixed 
 - Fixed author query

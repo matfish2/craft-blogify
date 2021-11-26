@@ -94,6 +94,13 @@ class FakerService
         }, $keys);
     }
 
+    public static function date() {
+        $max = time();
+        $min = $max -  3600 * 24 * 365 * 2; // two years ago
+
+        return date("Y-m-d H:i:s", mt_rand($min, $max));
+    }
+
     private static function words($n)
     {
         $res = [];
