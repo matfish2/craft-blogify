@@ -194,3 +194,9 @@ Craft's [Commercial Plugin Licensing](https://craftcms.com/docs/3.x/plugins.html
 ## Requirements
 
 This plugin requires Craft CMS 3.7.0 or later.
+
+## Issues and Discussions Guidelines
+
+*Please only open a new issue for bug reports.*
+For feature requests and questions open a new [Discussion](https://github.com/matfish2/craft-blogify/discussions) instead.
+When discussing a feature request please precede [FR] to the title.
