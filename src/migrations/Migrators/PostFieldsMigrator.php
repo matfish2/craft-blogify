@@ -104,10 +104,8 @@ class PostFieldsMigrator extends Migrator
 
     public static function getImagesFolderId()
     {
-        $volumeId = Craft::$app->volumes->getVolumeByHandle('blogifyAssets')->id;
+        $volume = Craft::$app->volumes->getVolumeByHandle('blogifyAssets');
 
-        $folder = Craft::$app->assets->getRootFolderByVolumeId($volumeId);
-
-        return 'folder:' . $folder->uid;
+        return 'volume:' . $volume->uid;
     }
 }

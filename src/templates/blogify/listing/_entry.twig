@@ -22,9 +22,9 @@
                                 <img src="{{ post.thumbnail.url }}" alt="{{ post.thumbnail.title }}"
                                      class="img-fluid rounded"/>
                                 <div class="excerpt">
-                                    <a href="{{ siteUrl }}blog/category/{{ post.categories[0].slug }}"
+                                    <a href="{{ siteUrl }}blog/category/{{ post.categories.all()[0].slug }}"
                                        class="post-category text-white bg-secondary mb-3">
-                                        {{ post.categories[0] }}
+                                        {{ post.categories.all()[0] }}
                                     </a>
 
                                     <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>

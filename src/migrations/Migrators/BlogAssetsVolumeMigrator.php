@@ -5,7 +5,10 @@ namespace matfish\Blogify\migrations\Migrators;
 
 
 use Craft;
-use craft\volumes\Local;
+use craft\base\Fs;
+use craft\base\FsInterface;
+use craft\fs\Local;
+use craft\models\Volume;
 use matfish\Blogify\Handles;
 
 class BlogAssetsVolumeMigrator extends Migrator
@@ -22,20 +25,31 @@ class BlogAssetsVolumeMigrator extends Migrator
             return true;
         }
 
-        $volumesService = Craft::$app->getVolumes();
+        $fsService = Craft::$app->getFs();
 
-        $volume = $volumesService->createVolume([
+        /** @var FsInterface|Fs $fs */
+        $fs = $fsService->createFilesystem([
             'type' => Local::class,
-            'name' => 'Blog Assets',
-            'handle' => Handles::ASSETS,
-            'hasUrls' => 1,
+            'name' => 'Local',
+            'handle' => 'local',
+            'hasUrls' => true,
             'url' => '@web/blogify',
             'settings' => [
                 'path' => '@webroot/blogify'
             ]
         ]);
 
-        $volumesService->saveVolume($volume);
+        if (!$fsService->saveFilesystem($fs)) {
+            die('Couldn’t save filesystem.');
+        }
+
+        Craft::$app->getVolumes()->saveVolume(new Volume(
+            [
+                'fs' => 'local',
+                'name' => 'Blog Assets',
+                'handle' => Handles::ASSETS
+            ]
+        ));
 
         return true;
     }

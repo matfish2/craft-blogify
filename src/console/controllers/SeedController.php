@@ -9,12 +9,12 @@ class SeedController extends Controller
 {
     public $count = 10;
 
-    public function options($actionID)
+    public function options($actionID) : array
     {
         return ['count'];
     }
 
-    public function actionIndex()
+    public function actionIndex(): int
     {
         blogify_log("Seeding {$this->count} records...");
         for ($i = 1; $i <= $this->count; $i++) {
@@ -23,5 +23,7 @@ class SeedController extends Controller
         }
 
         echo "Done!";
+
+        return 1;
     }
 }

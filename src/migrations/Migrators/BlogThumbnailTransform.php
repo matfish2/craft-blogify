@@ -6,6 +6,7 @@ namespace matfish\Blogify\migrations\Migrators;
 
 use Craft;
 use craft\models\AssetTransform;
+use craft\models\ImageTransform;
 use matfish\Blogify\Handles;
 
 class BlogThumbnailTransform extends Migrator
@@ -13,7 +14,7 @@ class BlogThumbnailTransform extends Migrator
 
     public static function add(): bool
     {
-        $transform = Craft::$app->getAssetTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
+        $transform = Craft::$app->getImageTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
 
         if ($transform) {
             blogify_log("Thumbnail transform already exists. Skipping");
@@ -22,7 +23,7 @@ class BlogThumbnailTransform extends Migrator
 
         blogify_log("Adding thumbnail transform...");
 
-        $transform = new AssetTransform();
+        $transform = new ImageTransform();
         $transform->name = 'Blog Thumbnail';
         $transform->handle = Handles::THUMBNAIL_TRANSFORM;
         $transform->width = 370;
@@ -32,7 +33,7 @@ class BlogThumbnailTransform extends Migrator
         $transform->quality = 0;
         $transform->interlace = 'none';
 
-        $success = Craft::$app->getAssetTransforms()->saveTransform($transform);
+        $success = Craft::$app->getImageTransforms()->saveTransform($transform);
 
         if (!$success) {
             blogify_log("Failed to created thumbnail transform");
@@ -45,10 +46,10 @@ class BlogThumbnailTransform extends Migrator
     {
         blogify_log("Removing thumbnail transform...");
 
-        $transform = Craft::$app->getAssetTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
+        $transform = Craft::$app->getImageTransforms()->getTransformByHandle(Handles::THUMBNAIL_TRANSFORM);
 
         if ($transform) {
-            $success = Craft::$app->getAssetTransforms()->deleteTransformById($transform->id);
+            $success = Craft::$app->getImageTransforms()->deleteTransformById($transform->id);
         } else {
             return false;
         }

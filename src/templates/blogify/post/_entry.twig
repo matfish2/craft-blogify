@@ -8,8 +8,8 @@
             <div class="row same-height justify-content-center">
                 <div class="col-md-12 col-lg-10">
                     <div class="post-entry text-center">
-                        <a href="{{ siteUrl }}blog/category/{{ entry.categories[0].slug }}" class="post-category text-white bg-success mb-3">
-                            {{ entry.categories[0] }}
+                        <a href="{{ siteUrl }}blog/category/{{ entry.categories.all()[0].slug }}" class="post-category text-white bg-success mb-3">
+                            {{ entry.categories.all()[0] }}
                         </a>
                         <h1 class="mb-4"><a href="#">{{ entry.title }}</a></h1>
                         <div class="post-meta align-items-center text-center">
@@ -157,7 +157,7 @@
                             <a href="{{ post.url }}" class="hentry v-height img-2 gradient ml-2"
                                style="background-image: url({{ post.thumbnail.url }});">
                             <span class="post-category text-white bg-primary">
-                                {{ post.categories[0] }}
+                                {{ post.categories.all()[0] }}
                             </span>
                                 <div class="text text-sm">
                                     <h2>{{ post.title }}</h2>

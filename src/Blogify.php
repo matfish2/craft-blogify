@@ -3,6 +3,7 @@
 namespace matfish\Blogify;
 
 
+use Cassandra\Set;
 use Craft;
 use craft\elements\Category;
 use craft\elements\Entry;
@@ -62,7 +63,7 @@ class Blogify extends \craft\base\Plugin
         );
     }
 
-    protected function createSettingsModel()
+    protected function createSettingsModel() : Settings
     {
         return new Settings();
     }

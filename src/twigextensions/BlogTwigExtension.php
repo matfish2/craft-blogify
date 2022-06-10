@@ -3,6 +3,7 @@
 namespace matfish\Blogify\twigextensions;
 
 use craft\elements\Category;
+use craft\elements\db\EntryQuery;
 use craft\elements\Entry;
 use craft\elements\Tag;
 use matfish\Blogify\Handles;
@@ -15,7 +16,7 @@ use Twig\TwigFunction;
 class BlogTwigExtension extends AbstractExtension implements GlobalsInterface
 {
 
-    public function getGlobals()
+    public function getGlobals() : array
     {
         $idsService = new IdsService();
 
@@ -28,7 +29,7 @@ class BlogTwigExtension extends AbstractExtension implements GlobalsInterface
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('blogifyRecentPosts', [$this, 'getRecentPosts']),
@@ -37,14 +38,14 @@ class BlogTwigExtension extends AbstractExtension implements GlobalsInterface
         ];
     }
 
-    public function getRecentPosts()
+    public function getRecentPosts(): EntryQuery
     {
         return Entry::find()
             ->section(Handles::CHANNEL)
             ->orderBy('postDate desc');
     }
 
-    public function getPopularPosts($excludeNoViews = false)
+    public function getPopularPosts($excludeNoViews = false): EntryQuery
     {
         (new PostViewsService())->verifyEnabled();
 

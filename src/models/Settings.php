@@ -4,10 +4,10 @@ namespace matfish\Blogify\models;
 
 class Settings extends \craft\base\Model
 {
-    public $matrixTemplatesPath = 'blogify/post/_matrix';
-    public $postViewsExcludeIps = [];
+    public string $matrixTemplatesPath = 'blogify/post/_matrix';
+    public array $postViewsExcludeIps = [];
 
-    public function rules()
+    public function rules() : array
     {
         return [
             [['matrixTemplatesPath'], 'required'],

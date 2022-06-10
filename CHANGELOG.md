@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 2.0.0 - 2022-06-10
+- Craft 4: Initial Release
+
 ## 1.0.8 - 2021-11-26
 ### Changed
 - Seeding: Randomize post date
