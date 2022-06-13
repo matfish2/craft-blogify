@@ -1,7 +1,7 @@
 # Release Notes for Blogify
 
 ## 2.0.1 - 2022-06-13
-## Fixed
+### Fixed
 - Allow Redactor version >=3
 
 ## 2.0.0 - 2022-06-10
