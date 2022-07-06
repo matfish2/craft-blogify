@@ -20,19 +20,23 @@ class SectionService
             return true;
         }
 
+        $allSitesSettings = [];
+
+        foreach (Craft::$app->getSites()->getAllSiteIds() as $siteId) {
+            $allSitesSettings[$siteId] = new Section_SiteSettings([
+                'siteId' => $siteId,
+                'enabledByDefault' => true,
+                'hasUrls' => true,
+                'uriFormat' => 'blog' . $url,
+                'template' => 'blogify/' . $template,
+            ]);
+        }
+
         $section = new Section([
             'name' => $name,
             'handle' => $handle,
             'type' => $type,
-            'siteSettings' => [
-                new Section_SiteSettings([
-                    'siteId' => Craft::$app->sites->getPrimarySite()->id,
-                    'enabledByDefault' => true,
-                    'hasUrls' => true,
-                    'uriFormat' => 'blog' . $url,
-                    'template' => 'blogify/' . $template,
-                ]),
-            ]
+            'siteSettings' => $allSitesSettings
         ]);
 
         if (!Craft::$app->sections->saveSection($section)) {

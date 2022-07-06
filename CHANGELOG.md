@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## 2.0.2 - 2022-07-06
+### Fixed
+- Multisite Support [#2](https://github.com/matfish2/craft-blogify/issues/2)
+
 ## 2.0.1 - 2022-06-13
 ### Fixed
 - Allow Redactor version >=3

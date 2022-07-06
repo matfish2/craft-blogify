@@ -22,14 +22,16 @@ class BlogCategoriesMigrator extends Migrator
             return true;
         }
 
-        $siteId = Craft::$app->sites->getPrimarySite()->id;
+        $allSitesSettings = [];
 
-        $siteSettings = new CategoryGroup_SiteSettings([
-            'siteId' => Craft::$app->sites->getPrimarySite()->id,
-            'hasUrls' => true,
-            'uriFormat' => 'blog/category/{slug}',
-            'template' => 'blogify/filters/category/_entry',
-        ]);
+        foreach (Craft::$app->getSites()->getAllSiteIds() as $siteId) {
+            $allSitesSettings[$siteId] = new CategoryGroup_SiteSettings([
+                'siteId' => $siteId,
+                'hasUrls' => true,
+                'uriFormat' => 'blog/category/{slug}',
+                'template' => 'blogify/filters/category/_entry',
+            ]);
+        }
 
         $categoryGroup = new CategoryGroup([
                 'name' => 'Blog Categories',
@@ -37,7 +39,7 @@ class BlogCategoriesMigrator extends Migrator
             ]
         );
 
-        $categoryGroup->setSiteSettings([$siteId => $siteSettings]);
+        $categoryGroup->setSiteSettings($allSitesSettings);
 
         return Craft::$app->categories->saveGroup($categoryGroup);
     }
