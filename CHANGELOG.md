@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## 1.0.9 - 2022-07-06
+### Fixed
+- Multisite Support [#2](https://github.com/matfish2/craft-blogify/issues/2)
+
 ## 1.0.8 - 2021-11-26
 ### Changed
 - Seeding: Randomize post date
