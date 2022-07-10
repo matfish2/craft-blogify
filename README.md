@@ -173,6 +173,22 @@ Finally, to display the number of views in your template simply call:
 ```
 {{entry.views}}
 ```
+
+### Multiple sites
+When installed Blogify will register all Category Groups and Sections to all existing sites,
+with the same URL (relative to site root URL) and same templates.
+
+If you need to vary template content between sites you can use:
+1. [Static translations](https://craftcms.com/docs/4.x/sites.html#static-message-translations)
+2. [If statements](https://craftcms.com/docs/4.x/sites.html#language)
+3. [Polymorphism](https://craftcms.com/docs/4.x/sites.html#language)
+
+In case you still need to duplicate an entire template, you can duplicate it to your site folder, *while keeping the same folder structure* ** (e.g `templates/de/blogify/listing/_entry.twig`)
+This will prompt Craft to load this template as an override, when accessing the site with a handle of `de`.
+See: https://craftcms.com/docs/4.x/sites.html#step-4-update-your-templates
+
+** Note that you can also duplicate it to a path that doesn't retain the same folder structure, in which case you'll need to define a new template path for the relevant Section/Category Group in Craft's back-end.
+
 ## Modification
 
 Blogify is designed as a solid starting point for a blog. You can freely extend and modify the data structures and
