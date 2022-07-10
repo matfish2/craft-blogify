@@ -1,5 +1,9 @@
 # Release Notes for Blogify
 
+## 2.0.3 - 2022-07-10
+### Added
+- Add dedicated log file
+
 ## 2.0.2 - 2022-07-06
 ### Fixed
 - Multisite Support [#2](https://github.com/matfish2/craft-blogify/issues/2)
