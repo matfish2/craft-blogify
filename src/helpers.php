@@ -1,8 +1,9 @@
 <?php
 
-function blogify_log($message)
+function blogify_log($message, $type = \yii\log\Logger::LEVEL_INFO)
 {
     echo '> ' . $message . PHP_EOL;
+    Craft::getLogger()->log($message, $type, 'blogify');
 }
 
 function blogify_cache($handle, Closure $callback)

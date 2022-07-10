@@ -11,6 +11,7 @@ use craft\elements\Tag;
 use craft\elements\User;
 use craft\events\DefineBehaviorsEvent;
 use craft\events\TemplateEvent;
+use craft\log\MonologTarget;
 use craft\web\View;
 use matfish\Blogify\behaviors\AuthorPostsBehavior;
 use matfish\Blogify\behaviors\CategoryPostsBehavior;
@@ -23,6 +24,8 @@ use matfish\Blogify\models\Settings;
 use matfish\Blogify\services\IdsService;
 use matfish\Blogify\services\PostViewsService;
 use matfish\Blogify\twigextensions\BlogTwigExtension;
+use Monolog\Formatter\LineFormatter;
+use Psr\Log\LogLevel;
 use yii\base\Event;
 
 class Blogify extends \craft\base\Plugin
@@ -44,6 +47,7 @@ class Blogify extends \craft\base\Plugin
         }
 
         $this->registerControllers();
+        $this->_registerLogTarget();
     }
 
     public function registerPostViewEventHandler()
@@ -63,7 +67,7 @@ class Blogify extends \craft\base\Plugin
         );
     }
 
-    protected function createSettingsModel() : Settings
+    protected function createSettingsModel(): Settings
     {
         return new Settings();
     }
@@ -134,5 +138,25 @@ class Blogify extends \craft\base\Plugin
     private function registerTwigExtensions()
     {
         Craft::$app->view->registerTwigExtension(new BlogTwigExtension());
+    }
+
+    /**
+     * Registers a custom log target, keeping the format as simple as possible.
+     *
+     * @see LineFormatter::SIMPLE_FORMAT
+     */
+    private function _registerLogTarget(): void
+    {
+        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+            'name' => 'blogify',
+            'categories' => ['blogify'],
+            'level' => LogLevel::INFO,
+            'logContext' => false,
+            'allowLineBreaks' => false,
+            'formatter' => new LineFormatter(
+                "[%datetime%] %message%\n",
+                'Y-m-d H:i:s',
+            ),
+        ]);
     }
 }
