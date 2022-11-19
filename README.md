@@ -6,7 +6,7 @@ Once installed the plugin creates the data structure and templates, and allows f
 start customizing your blog right away. Blogify comes with a bunch of Twig enhancements that make the code in your
 templates declarative and simple.
 
-#### Click [here](https://blogify.frb.io/blog/index) for a full demo of the result with zero configuration.
+#### Click [here](https://www.craftcmsplugins.com/blog/index) for a full demo of the result with zero configuration.
 
 ## Installation
 
