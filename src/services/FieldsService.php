@@ -20,12 +20,10 @@ class FieldsService
 
         blogify_log("Creating field {$name}");
 
-        $groupId = $this->getFieldGroupId();
         $fieldsService = Craft::$app->getFields();
 
         $params = [
             'type' => $type,
-            'groupId' => $groupId,
             'name' => $name,
             'handle' => $handle
         ];
@@ -59,22 +57,5 @@ class FieldsService
         }
 
         return false;
-    }
-
-    private function getFieldGroupId()
-    {
-        $group = FieldGroup::findOne([
-            'name' => Handles::BLOG_FIELDS_GROUP_NAME
-        ]);
-
-        if ($group) {
-            return $group->id;
-        }
-
-        $group = FieldGroup::findOne('1=1');
-
-        blogify_log("Failed to find blog fields group. Using {$group->name} group instead");
-
-        return $group->id;
     }
 }

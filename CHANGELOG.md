@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.0.0 - 2024-04-13
+- Craft 5: Initial Release
+
 ## 2.0.3 - 2022-07-10
 ### Added
 - Add dedicated log file

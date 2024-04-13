@@ -22,8 +22,8 @@ class SeedingService
         $tags = $this->generateTags();
         $categories = $this->generateCategories();
         $images = $this->generateImages();
-
-        $section = Craft::$app->sections->getSectionByHandle(Handles::CHANNEL);
+        $sectionService = Craft::$app->getEntries();
+        $section = $sectionService->getSectionByHandle(Handles::CHANNEL);
         $entryType = $section->getEntryTypes()[0];
 
         $entry = new Entry([
@@ -32,7 +32,7 @@ class SeedingService
             'typeId' => $entryType->id,
             'authorId' => FakerService::arrayElement($this->getUsers()),
             'title' => FakerService::sentence(),
-            'postDate'=>FakerService::date()
+            'postDate' => FakerService::date()
         ]);
 
         $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);
@@ -111,7 +111,7 @@ class SeedingService
             $path = new Path();
             $tempDirPath = $path->getTempPath();
 
-            for ($i=1; $i<=11; $i++) {
+            for ($i = 1; $i <= 11; $i++) {
                 $image = "img_{$i}";
                 // move file from plugin assets to project temp folder
                 $filename = $image . '.jpg';
@@ -158,8 +158,8 @@ class SeedingService
 
     private function getUsers()
     {
-        return array_map(function($user) {
+        return array_map(function ($user) {
             return $user->id;
-        },User::findAll());
+        }, User::findAll());
     }
 }

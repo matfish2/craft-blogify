@@ -21,7 +21,8 @@ class EntryTypeService
         }, $fields);
 
 
-        $section = Craft::$app->sections->getSectionByHandle(Handles::CHANNEL);
+        $sectionService = Craft::$app->getEntries();
+        $section = $sectionService->getSectionByHandle(Handles::CHANNEL);
         $entryType = $section->getEntryTypes()[0];
         $layout = $entryType->getFieldLayout();
 
@@ -47,6 +48,6 @@ class EntryTypeService
 
         $entryType->setFieldLayout($layout);
 
-        return Craft::$app->sections->saveEntryType($entryType);
+        return $sectionService->saveEntryType($entryType);
     }
 }

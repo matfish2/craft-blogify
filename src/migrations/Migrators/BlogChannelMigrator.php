@@ -5,6 +5,7 @@ namespace matfish\Blogify\migrations\Migrators;
 
 
 use Craft;
+use craft\models\EntryType;
 use craft\models\Section;
 use matfish\Blogify\Handles;
 use matfish\Blogify\services\SectionService;
@@ -15,7 +16,13 @@ class BlogChannelMigrator extends Migrator
     {
         \Craft::$app->cache->delete(Handles::CHANNEL);
 
-        return (new SectionService())->add('Blog', Handles::CHANNEL, Section::TYPE_CHANNEL, '/{slug}', 'post/_entry');
+        $entryType = new EntryType([
+            'name' => 'Post',
+            'handle' => 'post',
+            'hasTitleField' => true,
+
+        ]);
+        return (new SectionService())->add('Blog', Handles::CHANNEL, Section::TYPE_CHANNEL, '/{slug}', 'post/_entry', $entryType);
     }
 
     public static function remove(): bool

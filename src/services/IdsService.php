@@ -36,7 +36,7 @@ class IdsService
     protected function getSectionIdByHandle($handle)
     {
         return blogify_cache($handle, function () use ($handle) {
-            return (int)Craft::$app->sections->getSectionByHandle($handle)->id;
+            return (int)Craft::$app->getEntries()->getSectionByHandle($handle)->id;
         });
     }
 }

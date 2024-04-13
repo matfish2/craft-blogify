@@ -3,17 +3,19 @@
 namespace matfish\Blogify\services;
 
 use Craft;
+use craft\models\EntryType;
 use craft\models\Section;
 use craft\models\Section_SiteSettings;
 
 class SectionService
 {
 
-    public function add($name, $handle, $type, $url, $template): bool
+    public function add($name, $handle, $type, $url, $template, EntryType $entryType): bool
     {
         blogify_log("Creating section {$name}");
 
-        $section = Craft::$app->sections->getSectionByHandle($handle);
+        $sectionService = Craft::$app->getEntries();
+        $section = $sectionService->getSectionByHandle($handle);
 
         if ($section) {
             blogify_log("Section {$name} exists. Skipping");
@@ -39,7 +41,14 @@ class SectionService
             'siteSettings' => $allSitesSettings
         ]);
 
-        if (!Craft::$app->sections->saveSection($section)) {
+        $sectionService->saveEntryType($entryType);
+        $et = $sectionService->getEntryTypeByHandle('posts');
+
+        $section->setEntryTypes([
+            $et
+        ]);
+
+        if (!$sectionService->saveSection($section)) {
             blogify_log("Failed to create section {$name}");
             blogify_log(json_encode($section->getErrors()));
             throw new \Exception("Failed to create section {$name}");
@@ -51,11 +60,12 @@ class SectionService
     public function remove($handle): bool
     {
         blogify_log("Removing section {$handle}");
+        $sectionService = Craft::$app->getEntries();
 
-        $section = Craft::$app->sections->getSectionByHandle($handle);
+        $section = $sectionService->getSectionByHandle($handle);
 
         if ($section) {
-            return Craft::$app->sections->deleteSection($section);
+            return $sectionService->deleteSection($section);
         }
 
         return false;

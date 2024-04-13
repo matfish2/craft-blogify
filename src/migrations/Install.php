@@ -33,7 +33,6 @@ class Install extends Migration
             BlogListingMigrator::add();
             BlogCategoriesMigrator::add();
             BlogTagsMigrator::add();
-            BlogFieldGroupMigrator::add();
             BlogAssetsVolumeMigrator::add();
             BlogThumbnailTransform::add();
             TagPageMigrator::add();
@@ -51,7 +50,6 @@ class Install extends Migration
             BlogListingMigrator::remove();
             BlogCategoriesMigrator::remove();
             BlogTagsMigrator::remove();
-            BlogFieldGroupMigrator::remove();
             BlogAssetsVolumeMigrator::remove();
             BlogThumbnailTransform::remove();
             TagPageMigrator::remove();
