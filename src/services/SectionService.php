@@ -42,7 +42,8 @@ class SectionService
         ]);
 
         $sectionService->saveEntryType($entryType);
-        $et = $sectionService->getEntryTypeByHandle('posts');
+
+        $et = $sectionService->getEntryTypeByHandle($entryType->handle);
 
         $section->setEntryTypes([
             $et
