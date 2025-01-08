@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.0.1 - 2025-01-08
+- Fixed: Section creation error [#7](https://github.com/matfish2/craft-blogify/issues/7)
+
 ## 3.0.0 - 2024-04-13
 - Craft 5: Initial Release
 
