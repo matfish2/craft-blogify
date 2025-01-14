@@ -32,8 +32,10 @@ class SeedingService
             'typeId' => $entryType->id,
             'authorId' => FakerService::arrayElement($this->getUsers()),
             'title' => FakerService::sentence(),
+            'slug' => FakerService::slug(),
             'postDate' => FakerService::date()
         ]);
+        
 
         $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);
         $entry->setFieldValue(Handles::POST_EXCERPT, FakerService::paragraph(3));
@@ -41,7 +43,13 @@ class SeedingService
         $entry->setFieldValue(Handles::POST_TAGS, FakerService::arrayElements($tags, 3));
         $entry->setFieldValue(Handles::POST_CATEGORIES, FakerService::arrayElements($categories, 2));
 
-        Craft::$app->getElements()->saveElement($entry);
+        $res = Craft::$app->getElements()->saveElement($entry);
+
+        if ($res) {
+            blogify_log("Saved entry");
+        } else {
+            blogify_log("Failed to save entry");
+        }
     }
 
     private function generateTags()

@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.1.0 - 2025-01-14
+- Fixed: Field layout error [#8](https://github.com/matfish2/craft-blogify/issues/8)
+
 ## 3.0.1 - 2025-01-08
 - Fixed: Section creation error [#7](https://github.com/matfish2/craft-blogify/issues/7)
 

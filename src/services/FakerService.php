@@ -53,6 +53,13 @@ class FakerService
         return self::words($l);
     }
 
+    public static function slug($l = null)
+    {
+        $l = $l ?: rand(8, 14);
+
+        return self::words($l);
+    }
+
     public static function paragraph($sentences = null)
     {
         $s = $sentences ?? rand(8, 16);
