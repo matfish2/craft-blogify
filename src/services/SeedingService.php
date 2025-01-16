@@ -40,8 +40,8 @@ class SeedingService
         $entry->setFieldValue(Handles::POST_IMAGE, [FakerService::arrayElement($images)]);
         $entry->setFieldValue(Handles::POST_EXCERPT, FakerService::paragraph(3));
         $entry->setFieldValue(Handles::POST_CONTENT, FakerService::postContent());
-        $entry->setFieldValue(Handles::POST_TAGS, FakerService::arrayElements($tags, 3));
-        $entry->setFieldValue(Handles::POST_CATEGORIES, FakerService::arrayElements($categories, 2));
+        $entry->setFieldValue(Handles::POST_TAGS, FakerService::arrayElements($tags, min(3, count($tags))));
+        $entry->setFieldValue(Handles::POST_CATEGORIES, FakerService::arrayElements($categories, min(2, count($categories))));
 
         $res = Craft::$app->getElements()->saveElement($entry);
 

@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.1.1 - 2025-01-16
+- Fixed: Seeding error [#9](https://github.com/matfish2/craft-blogify/issues/9)
+
 ## 3.1.0 - 2025-01-14
 - Fixed: Field layout error [#8](https://github.com/matfish2/craft-blogify/issues/8)
 
