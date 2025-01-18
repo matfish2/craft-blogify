@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.1.2 - 2025-01-18
+- Fixed: Author page error [#10](https://github.com/matfish2/craft-blogify/issues/10)
+
 ## 3.1.1 - 2025-01-16
 - Fixed: Seeding error [#9](https://github.com/matfish2/craft-blogify/issues/9)
 
