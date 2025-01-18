@@ -1,5 +1,8 @@
 # Release Notes for Blogify
 
+## 3.2.0 - 2025-01-18
+- Replaced Redactor with CKEditor
+
 ## 3.1.2 - 2025-01-18
 - Fixed: Author page error [#10](https://github.com/matfish2/craft-blogify/issues/10)
 

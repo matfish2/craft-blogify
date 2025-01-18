@@ -24,8 +24,8 @@ class Install extends Migration
     public function safeUp()
     {
         if (!$this->_pluginExistsInProjectConfig()) {
-            blogify_log("Installing Redactor...");
-            Craft::$app->getPlugins()->installPlugin('redactor');
+            blogify_log("Installing CKEditor...");
+            Craft::$app->getPlugins()->installPlugin('ckeditor');
 
             CopyTemplatesMigrator::add();
 

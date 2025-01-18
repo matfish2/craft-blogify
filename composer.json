@@ -21,7 +21,7 @@
   },
   "require": {
     "craftcms/cms": "^5.0.4",
-    "craftcms/redactor": "^4.0.0"
+    "craftcms/ckeditor": "^4.4.0"
   },
   "autoload": {
     "psr-4": {

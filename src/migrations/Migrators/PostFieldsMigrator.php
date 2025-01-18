@@ -40,7 +40,7 @@ class PostFieldsMigrator extends Migrator
 
         $content = $s->add('Post Content',
             Handles::POST_CONTENT,
-            'craft\redactor\Field',
+            'craft\ckeditor\Field',
             [
                 'required' => true,
                 'searchable' => true
